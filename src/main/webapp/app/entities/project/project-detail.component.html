@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="project">
+            <h2><span>Project</span> {{project.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{project.title}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <div *ngIf="project.description">
+                        <a (click)="openFile(project.descriptionContentType, project.description)">
+                            <img [src]="'data:' + project.descriptionContentType + ';base64,' + project.description" style="max-width: 100%;" alt="project image"/>
+                        </a>
+                        {{project.descriptionContentType}}, {{byteSize(project.description)}}
+                    </div>
+                </dd>
+                <dt><span>Date</span></dt>
+                <dd>
+                    <span>{{project.date}}</span>
+                </dd>
+                <dt><span>Level</span></dt>
+                <dd>
+                    <span>{{project.level}}</span>
+                </dd>
+                <dt><span>Visit</span></dt>
+                <dd>
+                    <span>{{project.visit}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/project', project.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

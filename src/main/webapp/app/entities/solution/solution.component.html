@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Solutions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-solution" [routerLink]="['/solution/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Solution
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="solutions?.length === 0">
+        <span>No solutions found</span>
+    </div>
+    <div class="table-responsive" *ngIf="solutions?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span>ID</span></th>
+            <th scope="col" ><span>Title</span></th>
+            <th scope="col" ><span>Date</span></th>
+            <th scope="col" ><span>State</span></th>
+            <th scope="col" ><span>File</span></th>
+            <th scope="col" ><span>Content</span></th>
+            <th scope="col" ><span>Donwload</span></th>
+            <th scope="col" ><span>Exercise</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let solution of solutions ;trackBy: trackId">
+                <td><a [routerLink]="['/solution', solution.id, 'view' ]">{{solution.id}}</a></td>
+                <td>{{solution.title}}</td>
+                <td>{{solution.date | date:'medium'}}</td>
+                <td>{{solution.state}}</td>
+                <td>
+                    <a *ngIf="solution.file" (click)="openFile(solution.fileContentType, solution.file)">open</a>
+                    <span *ngIf="solution.file">{{solution.fileContentType}}, {{byteSize(solution.file)}}</span>
+                </td>
+                <td>{{solution.content}}</td>
+                <td>{{solution.donwload}}</td>
+                <td>
+                    <div *ngIf="solution.exercise">
+                        <a [routerLink]="['/exercise', solution.exercise?.id, 'view' ]" >{{solution.exercise?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/solution', solution.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/solution', solution.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(solution)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

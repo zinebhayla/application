@@ -1,0 +1,51 @@
+{
+    "name": "Exercise",
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "level",
+            "fieldType": "Level",
+            "fieldValues": "SIMPLE,INTERMEDIATE,DIFFICULT"
+        },
+        {
+            "fieldName": "visit",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "chapter",
+            "otherEntityRelationshipName": "exercise",
+            "relationshipName": "chapter",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191219214004",
+    "javadoc": "not an ignored comment",
+    "entityTableName": "exercise",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

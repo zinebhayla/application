@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-media-heading">Create or edit a Media</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_url">Url</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('urlContentType').value + ';base64,' + editForm.get('url').value" style="max-height: 100px;" *ngIf="editForm.get('url').value" alt="media image"/>
+                        <div *ngIf="editForm.get('url').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('urlContentType').value}}, {{byteSize(editForm.get('url').value)}}</span>
+                            <button type="button" (click)="clearInputImage('url', 'urlContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_url" (change)="setFileData($event, 'url', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="url" id="field_url"
+                           formControlName="url"/>
+                    <input type="hidden" class="form-control" name="urlContentType" id="field_urlContentType"
+                           formControlName="urlContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" formControlName="project">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectOption.id === editForm.get('project').value?.id ? editForm.get('project').value : projectOption" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

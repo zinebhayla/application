@@ -1,0 +1,101 @@
+
+
+// an ignored comment
+/** not an ignored comment */
+entity Exercise {
+	title String,
+   content TextBlob,
+    date Instant,
+    state Integer,
+    level Level,
+    visit Integer
+}
+
+entity Solution {
+	title String,
+    date Instant,
+    state Integer,
+    file AnyBlob,
+    content TextBlob,
+    donwload Integer
+}
+enum Level {
+    SIMPLE, INTERMEDIATE, DIFFICULT
+}
+entity Course {
+	name String,
+	img ImageBlob
+}
+
+entity Category {
+	name String,
+	img ImageBlob
+}
+
+entity Chapter {
+	name String,
+     date Instant,
+    state Integer
+}
+entity Project {
+	title String,
+   description ImageBlob,
+    date Instant,
+     level Level,
+    visit Integer
+}
+entity Tag {
+	name String
+    }
+    entity Media {
+	url ImageBlob
+    }
+/**
+ * The Employee entity.
+ */
+
+
+relationship ManyToOne {
+Exercise{chapter} to Chapter,
+}
+
+relationship OneToOne {
+	Solution{exercise} to Exercise
+}
+
+
+
+// defining multiple OneToMany relationships with comments
+
+
+
+relationship OneToMany {
+Course{chapter} to Chapter,
+}
+
+relationship ManyToOne {
+Course{category} to Category
+}
+relationship ManyToMany {
+	Tag{project(title)} to Project{tag}
+   
+}
+relationship ManyToOne {
+Media{project} to Project
+}
+
+// defining multiple oneToOne relationships
+
+
+// Set pagination options
+paginate Project, Exercise with infinite-scroll
+paginate Course with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
